@@ -10,7 +10,6 @@ const App = {
     this.bindUI();
     this.updateDate();
     await this.refresh();
-    // 尾盘时段自动刷新（每分钟）
     setInterval(() => this.refresh(true), 60_000);
   },
 
@@ -30,7 +29,7 @@ const App = {
 
   async refresh(force = false) {
     const statusEl = document.getElementById('cacheStatus');
-    statusEl.textContent = '⏳ 正在拉取全市场行情...';
+    statusEl.innerHTML = '正在拉取全市场行情...';
 
     try {
       const t0 = Date.now();
@@ -40,7 +39,6 @@ const App = {
       quotes = RedLineFilters.apply(quotes);
       this.lastQuotes = quotes;
 
-      // 执行 10 大策略
       const results = Strategies.META.map(meta => ({
         ...meta,
         list: Strategies[meta.key](quotes),
@@ -50,9 +48,9 @@ const App = {
       this.render();
 
       const elapsed = ((Date.now() - t0) / 1000).toFixed(2);
-      statusEl.textContent = `✅ 更新于 ${new Date().toLocaleTimeString()} · 全市场 ${rawCount} 只 → 红线过滤后 ${quotes.length} 只 · 耗时 ${elapsed}s`;
+      const sourceTag = DataFetcher.lastSource ? ` · 数据源 ${DataFetcher.lastSource}` : '';
+      statusEl.textContent = `✅ 更新于 ${new Date().toLocaleTimeString()} · 全市场 ${rawCount} 只 → 红线过滤后 ${quotes.length} 只 · 耗时 ${elapsed}s${sourceTag}`;
 
-      // 板块统计
       const upCount = quotes.filter(q => q.pct > 0).length;
       const downCount = quotes.filter(q => q.pct < 0).length;
       document.getElementById('boardStat').textContent =
@@ -60,7 +58,11 @@ const App = {
 
     } catch (e) {
       console.error(e);
-      statusEl.textContent = '❌ 行情拉取失败：' + e.message;
+      statusEl.innerHTML = `❌ 行情拉取失败
+        <button id="retryBtn" style="margin-left:12px;padding:4px 12px;background:#238636;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px">重试</button>
+        <div style="margin-top:8px;font-size:11px;color:#8b949e;white-space:pre-line">${e.message}</div>`;
+      const btn = document.getElementById('retryBtn');
+      if (btn) btn.addEventListener('click', () => this.refresh(true));
     }
   },
 
@@ -73,7 +75,6 @@ const App = {
     const overview = document.getElementById('overview');
     overview.style.gridTemplateColumns = `repeat(${this.PER_ROW}, minmax(0, 1fr))`;
 
-    // 汇总所有策略的股票，按动态评分取前 N
     const merged = new Map();
     for (const strat of this.lastResults) {
       for (const q of strat.list) {
