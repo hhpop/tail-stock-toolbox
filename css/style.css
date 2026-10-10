@@ -1,0 +1,185 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0d1117;
+  color: #e6edf3;
+  padding: 16px;
+  min-height: 100vh;
+}
+.container { max-width: 1400px; margin: 0 auto; }
+
+.hero-section {
+  background: linear-gradient(135deg, #161b22 0%, #1c2128 100%);
+  border: 1px solid #30363d;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.dominant-title {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #58a6ff, #79c0ff, #a371f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.title-sub {
+  font-size: 13px;
+  color: #8b949e;
+  display: block;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+#tradeDate { color: #58a6ff; font-weight: 600; }
+
+#ovCountWrap { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 13px; }
+#ovCountWrap .lb { color: #8b949e; }
+#ovCountWrap select {
+  background: #21262d;
+  color: #e6edf3;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+#ovCountWrap select:hover { border-color: #58a6ff; }
+#ovCountWrap .tip { color: #6e7681; font-size: 12px; }
+
+#cacheStatus {
+  font-size: 12px;
+  color: #3fb950;
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(63,185,80,0.08);
+  border-left: 3px solid #3fb950;
+  border-radius: 4px;
+  display: inline-block;
+}
+#boardStat {
+  font-size: 12px;
+  color: #8b949e;
+  margin-top: 6px;
+}
+
+.overview {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 14px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.card:hover {
+  border-color: #58a6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88,166,255,0.15);
+}
+.card h3 {
+  font-size: 14px;
+  color: #58a6ff;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card h3 .code {
+  color: #6e7681;
+  font-weight: 400;
+  font-size: 12px;
+}
+.stock-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 5px 0;
+  border-bottom: 1px solid #21262d;
+}
+.stock-item:last-child { border-bottom: none; }
+.stock-item .label { color: #8b949e; }
+.stock-item .value { font-weight: 600; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.score-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #1f6feb, #388bfd);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.accordion { display: flex; flex-direction: column; gap: 8px; }
+.acc-item {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.acc-header {
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.acc-header:hover { background: #1c2128; }
+.acc-header .count {
+  font-size: 12px;
+  color: #58a6ff;
+  background: rgba(88,166,255,0.1);
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+.acc-body {
+  display: none;
+  padding: 0 18px 16px;
+}
+.acc-item.open .acc-body { display: block; }
+.acc-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.acc-body th {
+  text-align: left;
+  color: #8b949e;
+  font-weight: 500;
+  padding: 8px 6px;
+  border-bottom: 1px solid #30363d;
+  font-size: 12px;
+}
+.acc-body td {
+  padding: 8px 6px;
+  border-bottom: 1px solid #21262d;
+}
+.acc-body tr:hover { background: rgba(88,166,255,0.05); }
+.reason { color: #a371f7; font-size: 12px; }
+
+.empty {
+  text-align: center;
+  color: #6e7681;
+  padding: 40px 20px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .overview { grid-template-columns: repeat(2, 1fr) !important; }
+  .dominant-title { font-size: 20px; }
+}
+@media (max-width: 600px) {
+  .overview { grid-template-columns: 1fr !important; }
+}

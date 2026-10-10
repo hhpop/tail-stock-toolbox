@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>尾盘选股工具箱 · 10合1</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+  <div class="hero-section">
+    <span class="dominant-title">尾盘选股工具箱 · 10合1</span>
+    <span class="title-sub">
+      10 大策略 · 14:30 自动扫描 · 真实行情 · 红线淘汰 · 动态评分
+      <span id="tradeDate">--</span>
+    </span>
+    <div id="ovCountWrap">
+      <span class="lb">每行展示</span>
+      <select id="ovCountSelect">
+        <option value="3">3 只</option>
+        <option value="4">4 只</option>
+        <option value="5" selected>5 只</option>
+      </select>
+      <span class="tip">（最小 3，最大 5）</span>
+    </div>
+    <div id="cacheStatus">--</div>
+    <div id="boardStat"></div>
+  </div>
+  <div class="overview" id="overview"></div>
+  <div class="accordion" id="accordion"></div>
+</div>
+
+<script src="js/data-fetcher.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/strategies.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
